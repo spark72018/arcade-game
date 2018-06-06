@@ -84,12 +84,11 @@ var Engine = (function(global) {
 
 
     function checkCollisions(enemiesArr, player) {
-        var playerXCoord = player.x;
-        var playerYCoord = player.y;
+
 
         enemiesArr.forEach(function(enemy) {
     
-            if(enemy.x === playerXCoord) {
+            if(enemy.x - 110 > player.x) {
                 console.log('hit');
             }
         })

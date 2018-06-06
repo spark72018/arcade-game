@@ -49,6 +49,7 @@ var Player = function(x, y) {
 Player.prototype.update = function(dx, dy) {
     this.updateX(dx);
     this.updateY(dy);
+    console.log('Player updated coords are', this.x, this.y);
 };
 
 Player.prototype.render = function() {
@@ -90,7 +91,7 @@ Player.prototype.updateY = function(dy) {
     this.y = this.y += dy;
 };
 
-var allEnemies = [new Enemy(-90, 230, 60), new Enemy(-90, 150, 90)];
+var allEnemies = [new Enemy(-90, 226, 60), new Enemy(-90, 137, 90), new Enemy(-90, 48, 120)];
 var player = new Player(202, 404);
 
 
