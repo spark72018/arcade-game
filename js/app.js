@@ -1,9 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -15,6 +16,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    var currentX = this.x;
+
+    if(currentX + this.speed * dt > 505) {
+        this.x = -90;
+    }else {
+        this.x += this.speed * dt;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -55,10 +63,8 @@ Player.prototype.handleInput = function(direction) {
 
     if(goUp) {
         return this.checkY(-89) ? this.update(0, -89) : null;
-        // return this.update(0, -89);
     }else if(goDown) {
         return this.checkY(89) ? this.update(0, 89) : null;
-        // return this.update(0, 89);
     }else if(goLeft) {
         return this.checkX(-101) ? this.update(-101, 0) : null;
     }else if(goRight) {
@@ -67,11 +73,13 @@ Player.prototype.handleInput = function(direction) {
 };
 
 Player.prototype.checkX = function(dx) {
-    return !(this.x + dx > 504 || this.x + dx < 0);
+    var xCoord = this.x;
+    return !(xCoord + dx > 504 || xCoord + dx < 0);
 }
 
 Player.prototype.checkY = function(dy) {
-    return !(this.y + dy > 492 || this.y + dy < -42);
+    var yCoord = this.y;
+    return !(yCoord + dy > 492 || yCoord + dy < -42);
 }
 
 Player.prototype.updateX = function(dx) {
@@ -82,7 +90,7 @@ Player.prototype.updateY = function(dy) {
     this.y = this.y += dy;
 };
 
-var allEnemies = [new Enemy(10, 200), new Enemy(50, 300)];
+var allEnemies = [new Enemy(-90, 230, 60), new Enemy(-90, 150, 90)];
 var player = new Player(202, 404);
 
 
