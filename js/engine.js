@@ -26,7 +26,9 @@ var Engine = (function(global) {
 
     canvas.width = 505;
     canvas.height = 606;
+    
     doc.body.appendChild(canvas);
+    doc.body.appendChild(num_wins_display);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -66,6 +68,7 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
+        updateNumWinsDisplay(`Number of Wins: ${0}`);
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -89,7 +92,6 @@ var Engine = (function(global) {
             var yCollision = checkYCollision(enemy.y, player.y);
             
             if(xCollision && yCollision) {
-                console.log('hit with ', idx);
                 return reset();
             }
         })
@@ -181,9 +183,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // init();
         allEnemies = makeNewEnemiesArr();
-        player = new Player(202, 404, 0);
+        player = new Player(202, 404, player.wins);
     }
 
     /* Go ahead and load all of the images we know we're going to need to

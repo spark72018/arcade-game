@@ -94,7 +94,8 @@ Player.prototype.checkY = function(dy) {
     this.setWins(++currentWins);
     console.log(`this.wins is ${this.wins}`);
     allEnemies = makeNewEnemiesArr();
-    player = new Player(202, 404, 0);
+    player = new Player(202, 404, this.wins);
+    updateNumWinsDisplay(`Number of Wins: ${this.wins}`);
   }
   return !(yCoord + dy > 492 || yCoord + dy < -42);
 };
@@ -107,12 +108,35 @@ Player.prototype.updateY = function(dy) {
   this.y = this.y += dy;
 };
 
+// speed constants
+var SLOW_SPEED = 60;
+var MEDIUM_SPEED = 90;
+var FAST_SPEED = 120;
+var VERY_FAST_SPEED = 180;
+
+// row x coordinate constants
+var LOW_ROW = 226;
+var MIDDLE_ROW = 137;
+var HIGH_ROW = 48
+
+
 function makeNewEnemiesArr() {
   return [
-    new Enemy(-90, 226, 60),
-    new Enemy(-90, 137, 90),
-    new Enemy(-90, 48, 120)
+    new Enemy(-90, LOW_ROW, SLOW_SPEED),
+    new Enemy(-90, MIDDLE_ROW, MEDIUM_SPEED),
+    new Enemy(-90, HIGH_ROW, FAST_SPEED),
+    new Enemy(-90, HIGH_ROW, VERY_FAST_SPEED),
   ];
+}
+
+var num_wins_display = document.createElement('div');
+num_wins_display.setAttribute('class', 'number-of-wins');
+
+function setInnerText(element, content) {
+    return element.innerText = content;
+}
+function updateNumWinsDisplay(content) {
+    return setInnerText(num_wins_display, content);
 }
 
 var allEnemies = makeNewEnemiesArr();
