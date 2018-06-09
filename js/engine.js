@@ -84,14 +84,23 @@ var Engine = (function(global) {
 
 
     function checkCollisions(enemiesArr, player) {
-
-
-        enemiesArr.forEach(function(enemy) {
-    
-            if(enemy.x - 110 > player.x) {
-                console.log('hit');
+        enemiesArr.forEach(function(enemy, idx) {
+            var xCollision = checkXCollision(enemy.x, player.x);
+            var yCollision = checkYCollision(enemy.y, player.y);
+            
+            if(xCollision && yCollision) {
+                console.log('hit with ', idx);
+                return reset();
             }
         })
+    }
+
+    function checkXCollision(enemyX, playerX) {
+        return enemyX < playerX + 80 && enemyX > playerX - 80;
+    }
+
+    function checkYCollision(enemyY, playerY) {
+        return enemyY < playerY + 10 && enemyY > playerY - 10;
     }
 
     /* This is called by the update function and loops through all of the
@@ -172,7 +181,9 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        // init();
+        allEnemies = makeNewEnemiesArr();
+        player = new Player(202, 404);
     }
 
     /* Go ahead and load all of the images we know we're going to need to

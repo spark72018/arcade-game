@@ -91,7 +91,11 @@ Player.prototype.updateY = function(dy) {
     this.y = this.y += dy;
 };
 
-var allEnemies = [new Enemy(-90, 226, 60), new Enemy(-90, 137, 90), new Enemy(-90, 48, 120)];
+function makeNewEnemiesArr() {
+    return [new Enemy(-90, 226, 60), new Enemy(-90, 137, 90), new Enemy(-90, 48, 120)];
+}
+
+var allEnemies = makeNewEnemiesArr();
 var player = new Player(202, 404);
 
 
