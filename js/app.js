@@ -72,6 +72,10 @@ Player.prototype.handleInput = function(direction) {
   }
 };
 
+Player.prototype.setWins = function(num) {
+    this.wins = num;
+}
+
 Player.prototype.atEndOfBoard = function(dy) {
   var yCoord = this.y + dy;
   return yCoord < 0;
