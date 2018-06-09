@@ -73,8 +73,8 @@ Player.prototype.handleInput = function(direction) {
 };
 
 Player.prototype.setWins = function(num) {
-    this.wins = num;
-}
+  this.wins = num;
+};
 
 Player.prototype.atEndOfBoard = function(dy) {
   var yCoord = this.y + dy;
@@ -89,8 +89,12 @@ Player.prototype.checkX = function(dx) {
 Player.prototype.checkY = function(dy) {
   var yCoord = this.y;
   if (this.atEndOfBoard(dy)) {
+    var currentWins = this.wins;
+
+    this.setWins(++currentWins);
+    console.log(`this.wins is ${this.wins}`);
     allEnemies = makeNewEnemiesArr();
-    player = new Player(202, 404);
+    player = new Player(202, 404, 0);
   }
   return !(yCoord + dy > 492 || yCoord + dy < -42);
 };
@@ -112,7 +116,7 @@ function makeNewEnemiesArr() {
 }
 
 var allEnemies = makeNewEnemiesArr();
-var player = new Player(202, 404);
+var player = new Player(202, 404, 0);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

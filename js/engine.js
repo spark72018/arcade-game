@@ -183,7 +183,7 @@ var Engine = (function(global) {
     function reset() {
         // init();
         allEnemies = makeNewEnemiesArr();
-        player = new Player(202, 404);
+        player = new Player(202, 404, 0);
     }
 
     /* Go ahead and load all of the images we know we're going to need to
