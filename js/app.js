@@ -48,7 +48,6 @@ var Player = function(x, y, wins) {
 Player.prototype.update = function(dx, dy) {
   this.updateX(dx);
   this.updateY(dy);
-  console.log('Player updated coords are', this.x, this.y);
 };
 
 Player.prototype.render = function() {
@@ -56,18 +55,13 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(direction) {
-  var goUp = direction === 'up';
-  var goDown = direction === 'down';
-  var goLeft = direction === 'left';
-  var goRight = direction === 'right';
-
-  if (goUp) {
+  if (direction === 'up') {
     return this.checkY(-89) ? this.update(0, -89) : null;
-  } else if (goDown) {
+  } else if (direction === 'down') {
     return this.checkY(89) ? this.update(0, 89) : null;
-  } else if (goLeft) {
+  } else if (direction === 'left') {
     return this.checkX(-101) ? this.update(-101, 0) : null;
-  } else if (goRight) {
+  } else if (direction === 'right') {
     return this.checkX(101) ? this.update(101, 0) : null;
   }
 };
@@ -92,7 +86,6 @@ Player.prototype.checkY = function(dy) {
     var currentWins = this.wins;
 
     this.setWins(++currentWins);
-    console.log(`this.wins is ${this.wins}`);
     allEnemies = makeNewEnemiesArr();
     player = new Player(202, 404, this.wins);
     updateNumWinsDisplay(`Number of Wins: ${this.wins}`);
@@ -117,15 +110,14 @@ var VERY_FAST_SPEED = 180;
 // row x coordinate constants
 var LOW_ROW = 226;
 var MIDDLE_ROW = 137;
-var HIGH_ROW = 48
-
+var HIGH_ROW = 48;
 
 function makeNewEnemiesArr() {
   return [
     new Enemy(-90, LOW_ROW, SLOW_SPEED),
     new Enemy(-90, MIDDLE_ROW, MEDIUM_SPEED),
     new Enemy(-90, HIGH_ROW, FAST_SPEED),
-    new Enemy(-90, HIGH_ROW, VERY_FAST_SPEED),
+    new Enemy(-90, HIGH_ROW, VERY_FAST_SPEED)
   ];
 }
 
@@ -133,10 +125,10 @@ var num_wins_display = document.createElement('div');
 num_wins_display.setAttribute('class', 'number-of-wins');
 
 function setInnerText(element, content) {
-    return element.innerText = content;
+  return (element.innerText = content);
 }
 function updateNumWinsDisplay(content) {
-    return setInnerText(num_wins_display, content);
+  return setInnerText(num_wins_display, content);
 }
 
 var allEnemies = makeNewEnemiesArr();
@@ -151,7 +143,6 @@ document.addEventListener('keyup', function(e) {
     39: 'right',
     40: 'down'
   };
-  console.log('keyup event');
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
